@@ -1,1 +1,78 @@
+Core Tables
+
+users – login credentials, username, password, role (ADMIN/DRIVER/STUDENT)
+
+admins – admin-specific info (name, contact, email)
+
+drivers – driver personal info, license, contact, profile image
+
+students – personal info, bus assignment, class, QR code, fee status, transport validation
+
+student_parents – parent info, relation, contact, email
+
+Transport & Scheduling
+
+buses – bus number, capacity, type, assigned driver
+
+routes – route name, start/end, total stops
+
+stops – stop name, GPS coordinates
+
+route_stops – mapping route ↔ stops, stop order
+
+schedules – bus schedule: route, driver, timing
+
+bus_assignments – history of driver ↔ bus assignments
+
+Logs & QR Tracking
+
+qr_logs – QR scan events, student validation, timestamp, status
+
+trip_logs – trip start/end, driver, bus, route, timing
+
+alerts – invalid QR, fee due, absence, etc.
+
+notifications – SMS/WhatsApp alerts sent, status, message content
+
+Finance & Fee
+
+fee_transactions – student fee payment info, mode, status, date
+
+Driver & Vehicle Management
+
+driver_attendance – daily attendance, leave, remarks
+
+vehicle_maintenance – maintenance records, costs, status
+
+Admin & Audit
+
+admin_logs – actions by admin, timestamp, description
+
+Optional / Advanced Tables
+
+student_attendance – overall attendance by day/class/bus
+
+events – any school/transport events for notifications
+
+complaints_feedback – student/parent complaints, feedback
+
+gps_tracking – bus GPS coordinates history for tracking
+
+user_roles – role management (for future JWT/permission system)
+
+qr_templates – QR code generation template/versioning
+
+sms_templates – predefined messages for parent alerts
+
+school_info – school/college details, contact, logo, etc.
+
+
+========================================================================================
+
+
+
+
+
+
+
 
