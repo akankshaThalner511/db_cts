@@ -1,1 +1,352 @@
+College Transport Management - Complete DDL
+===================================================
+-- ======================================
+-- 1️⃣ Core Tables
+-- ======================================
+
+-- Users table (login credentials)
+CREATE TABLE users (
+    user_id CHAR(36) PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN','DRIVER','STUDENT') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Admins table
+CREATE TABLE admins (
+    admin_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
+    profile_image_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Drivers table
+CREATE TABLE drivers (
+    driver_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    license_number VARCHAR(50) NOT NULL,
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
+    profile_image_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Students table
+CREATE TABLE students (
+    student_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    date_of_birth DATE,
+    gender ENUM('M','F','O'),
+    department VARCHAR(50),
+    year VARCHAR(10),
+    roll_no VARCHAR(50),
+    bus_id CHAR(36),
+    stop_id CHAR(36),
+    qr_code_url VARCHAR(255),
+    fee_status ENUM('PAID','UNPAID') DEFAULT 'UNPAID',
+    transport_validation ENUM('ALLOWED','DENIED') DEFAULT 'DENIED',
+    profile_image_url VARCHAR(255),
+    address TEXT,
+    status ENUM('ACTIVE','INACTIVE','SUSPENDED') DEFAULT 'ACTIVE',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- Student parents table
+CREATE TABLE student_parents (
+    parent_id CHAR(36) PRIMARY KEY,
+    student_id CHAR(36) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    relation ENUM('FATHER','MOTHER','GUARDIAN') NOT NULL,
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- ======================================
+-- 2️⃣ Transport & Scheduling
+-- ======================================
+
+-- Buses table
+CREATE TABLE buses (
+    bus_id CHAR(36) PRIMARY KEY,
+    bus_number VARCHAR(20) UNIQUE NOT NULL,
+    capacity INT NOT NULL,
+    type ENUM('AC','NON-AC') DEFAULT 'NON-AC',
+    assigned_driver_id CHAR(36),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (assigned_driver_id) REFERENCES drivers(driver_id)
+);
+
+-- Routes table
+CREATE TABLE routes (
+    route_id CHAR(36) PRIMARY KEY,
+    route_name VARCHAR(50) NOT NULL,
+    start_point VARCHAR(100),
+    end_point VARCHAR(100),
+    total_stops INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Stops table
+CREATE TABLE stops (
+    stop_id CHAR(36) PRIMARY KEY,
+    stop_name VARCHAR(100) NOT NULL,
+    latitude DECIMAL(10,7),
+    longitude DECIMAL(10,7),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Route stops mapping
+CREATE TABLE route_stops (
+    route_stop_id CHAR(36) PRIMARY KEY,
+    route_id CHAR(36) NOT NULL,
+    stop_id CHAR(36) NOT NULL,
+    stop_order INT NOT NULL,
+    FOREIGN KEY (route_id) REFERENCES routes(route_id),
+    FOREIGN KEY (stop_id) REFERENCES stops(stop_id)
+);
+
+-- Bus schedules
+CREATE TABLE schedules (
+    schedule_id CHAR(36) PRIMARY KEY,
+    bus_id CHAR(36) NOT NULL,
+    driver_id CHAR(36) NOT NULL,
+    route_id CHAR(36) NOT NULL,
+    start_time TIME,
+    end_time TIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id),
+    FOREIGN KEY (route_id) REFERENCES routes(route_id)
+);
+
+-- Bus assignments
+CREATE TABLE bus_assignments (
+    assignment_id CHAR(36) PRIMARY KEY,
+    driver_id CHAR(36) NOT NULL,
+    bus_id CHAR(36) NOT NULL,
+    assigned_from DATE,
+    assigned_to DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id),
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id)
+);
+
+-- ======================================
+-- 3️⃣ Logs & QR Tracking
+-- ======================================
+
+-- QR scan logs
+CREATE TABLE qr_logs (
+    qr_log_id CHAR(36) PRIMARY KEY,
+    student_id CHAR(36) NOT NULL,
+    scanned_by CHAR(36) NOT NULL, -- driver_id
+    scanned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('SUCCESS','FAILED') NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (scanned_by) REFERENCES drivers(driver_id)
+);
+
+-- Trip logs
+CREATE TABLE trip_logs (
+    trip_log_id CHAR(36) PRIMARY KEY,
+    bus_id CHAR(36) NOT NULL,
+    driver_id CHAR(36) NOT NULL,
+    route_id CHAR(36) NOT NULL,
+    start_time TIMESTAMP,
+    end_time TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id),
+    FOREIGN KEY (route_id) REFERENCES routes(route_id)
+);
+
+-- Alerts table
+CREATE TABLE alerts (
+    alert_id CHAR(36) PRIMARY KEY,
+    student_id CHAR(36),
+    alert_type ENUM('INVALID_QR','FEE_DUE','ABSENCE','OTHER') NOT NULL,
+    message TEXT,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('PENDING','SENT','FAILED') DEFAULT 'PENDING',
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- Notifications
+CREATE TABLE notifications (
+    notification_id CHAR(36) PRIMARY KEY,
+    recipient_id CHAR(36) NOT NULL,
+    type ENUM('SMS','WHATSAPP') NOT NULL,
+    message TEXT,
+    status ENUM('PENDING','SENT','FAILED') DEFAULT 'PENDING',
+    sent_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ======================================
+-- 4️⃣ Finance & Fee
+-- ======================================
+
+-- Fee transactions
+CREATE TABLE fee_transactions (
+    transaction_id CHAR(36) PRIMARY KEY,
+    student_id CHAR(36) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_mode ENUM('CASH','CARD','UPI','ONLINE') NOT NULL,
+    status ENUM('SUCCESS','FAILED','PENDING') DEFAULT 'PENDING',
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- ======================================
+-- 5️⃣ Driver & Vehicle Management
+-- ======================================
+
+-- Driver attendance
+CREATE TABLE driver_attendance (
+    attendance_id CHAR(36) PRIMARY KEY,
+    driver_id CHAR(36) NOT NULL,
+    attendance_date DATE NOT NULL,
+    status ENUM('PRESENT','ABSENT','LEAVE') NOT NULL,
+    remarks VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id)
+);
+
+-- Vehicle maintenance
+CREATE TABLE vehicle_maintenance (
+    maintenance_id CHAR(36) PRIMARY KEY,
+    bus_id CHAR(36) NOT NULL,
+    description TEXT,
+    cost DECIMAL(10,2),
+    maintenance_date DATE,
+    status ENUM('PENDING','COMPLETED') DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id)
+);
+
+-- ======================================
+-- 6️⃣ Admin & Audit
+-- ======================================
+
+-- Admin action logs
+CREATE TABLE admin_logs (
+    log_id CHAR(36) PRIMARY KEY,
+    admin_id CHAR(36) NOT NULL,
+    action VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
+);
+
+-- ======================================
+-- 7️⃣ Optional / Advanced Tables
+-- ======================================
+
+-- Student attendance
+CREATE TABLE student_attendance (
+    attendance_id CHAR(36) PRIMARY KEY,
+    student_id CHAR(36) NOT NULL,
+    date DATE NOT NULL,
+    status ENUM('PRESENT','ABSENT','LATE','EXCUSED') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- Events
+CREATE TABLE events (
+    event_id CHAR(36) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    event_date DATETIME NOT NULL,
+    created_by CHAR(36),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES users(user_id)
+);
+
+-- Complaints / Feedback
+CREATE TABLE complaints_feedback (
+    complaint_id CHAR(36) PRIMARY KEY,
+    user_id CHAR(36) NOT NULL,
+    type ENUM('COMPLAINT','FEEDBACK') NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('PENDING','RESOLVED') DEFAULT 'PENDING',
+    response TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- GPS Tracking
+CREATE TABLE gps_tracking (
+    tracking_id CHAR(36) PRIMARY KEY,
+    bus_id CHAR(36) NOT NULL,
+    latitude DECIMAL(10, 7) NOT NULL,
+    longitude DECIMAL(10, 7) NOT NULL,
+    recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id)
+);
+
+-- User roles (future JWT)
+CREATE TABLE user_roles (
+    role_id CHAR(36) PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- QR Templates
+CREATE TABLE qr_templates (
+    template_id CHAR(36) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    version INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- SMS Templates
+CREATE TABLE sms_templates (
+    template_id CHAR(36) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    type ENUM('PARENT_ALERT','STUDENT_ALERT','ADMIN_ALERT') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- School / College Info
+CREATE TABLE college_info (
+    college_id CHAR(36) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address TEXT,
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
+    logo_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 
