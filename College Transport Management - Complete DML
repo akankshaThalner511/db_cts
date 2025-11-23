@@ -45,6 +45,37 @@ VALUES
 ('DRV-014','USR-017','Ajay T','MH-DRIV-2012-18','9444123456','ajay.t@example.com','/profiles/ajay.png'),
 ('DRV-015','USR-018','Rohit M','MH-DRIV-2011-07','9333123456','rohit.m@example.com','/profiles/rohit.png');
 
+
+
+INSERT INTO users (user_id, username, password, role) VALUES
+('USR-011','driver06','Driver@006','DRIVER'),
+('USR-012','driver07','Driver@007','DRIVER'),
+('USR-013','driver08','Driver@008','DRIVER'),
+('USR-014','driver09','Driver@009','DRIVER'),
+('USR-015','driver10','Driver@010','DRIVER'),
+('USR-016','driver11','Driver@011','DRIVER'),
+('USR-017','driver12','Driver@012','DRIVER'),
+('USR-018','driver13','Driver@013','DRIVER');
+
+INSERT INTO drivers (driver_id, user_id, full_name, license_number, contact_number, email, profile_image_url)
+VALUES
+ ('DRV-001','USR-004','Mahesh Kale','MH-DRIV-2020-01','9898989898','mahesh.k@example.com','/profiles/mahesh.png'),
+ ('DRV-002','USR-005','Ramesh Pawar','MH-DRIV-2019-11','9765432189','ramesh.p@example.com','/profiles/ramesh.png'),
+ ('DRV-003','USR-006','Sanjay Jagtap','MH-DRIV-2018-22','9899123456','sanjay.j@example.com','/profiles/sanjay.png'),
+ ('DRV-004','USR-007','Sunil Shirsat','MH-DRIV-2021-17','9099123456','sunil.s@example.com','/profiles/sunil.png'),
+ ('DRV-005','USR-008','Vikas Shinde','MH-DRIV-2017-31','9022334455','vikas.s@example.com','/profiles/vikas.png'),
+ ('DRV-006','USR-009','Anil Pujari','MH-DRIV-2020-41','9822991122','anil.p@example.com','/profiles/anil.png'),
+ ('DRV-007','USR-010','Pravin Bhosale','MH-DRIV-2016-12','9899012233','pravin.b@example.com','/profiles/pravin.png'),
+ ('DRV-008','USR-011','Suresh Mane','MH-DRIV-2022-13','9123456789','suresh.m@example.com','/profiles/suresh.png'),
+ ('DRV-009','USR-012','Raju Kamble','MH-DRIV-2023-44','9000011223','raju.k@example.com','/profiles/raju.png'),
+ ('DRV-010','USR-013','Ganesh Sawant','MH-DRIV-2015-05','9988776655','ganesh.s@example.com','/profiles/ganesh.png'),
+ ('DRV-011','USR-014','Kishor Patil','MH-DRIV-2014-08','9876501111','kishor.p@example.com','/profiles/kishor.png'),
+ ('DRV-012','USR-015','Dilip More','MH-DRIV-2019-02','9666123456','dilip.m@example.com','/profiles/dilip.png'),
+ ('DRV-013','USR-016','Balu R','MH-DRIV-2013-09','9555123456','balu.r@example.com','/profiles/balu.png'),
+ ('DRV-014','USR-017','Ajay T','MH-DRIV-2012-18','9444123456','ajay.t@example.com','/profiles/ajay.png'),
+ ('DRV-015','USR-018','Rohit M','MH-DRIV-2011-07','9333123456','rohit.m@example.com','/profiles/rohit.png');
+
+
 -- =====================================================
 -- 4) BUSES
 -- =====================================================
@@ -142,6 +173,71 @@ VALUES
 ('STP-049','Ravet Market',18.6383,73.7473),
 ('STP-050','Ravet Depot',18.6394,73.7484);
 
+
+
+INSERT INTO stops (stop_id, stop_name, latitude, longitude)
+VALUES
+('STP-051','Campus Gate',18.5600,73.7800),
+('STP-052','Railway Bridge',18.5250,73.8560),
+('STP-053','Nana Peth',18.5196,73.8553),
+('STP-054','Station Road',18.5226,73.8541),
+('STP-055','Pune Station',18.5289,73.8745),
+
+('STP-056','Karve Road',18.5047,73.8386),
+('STP-057','Paud Road',18.5061,73.8119),
+('STP-058','Kothrud Depot',18.4940,73.8118),
+('STP-059','Nal Stop',18.4995,73.8208),
+('STP-060','Paud Phata',18.5020,73.8067),
+
+('STP-061','Infosys Circle',18.5933,73.7387),
+('STP-062','Phase 1',18.5992,73.7421),
+('STP-063','Phase 2',18.6051,73.7478),
+('STP-064','IT Park',18.6020,73.7485),
+('STP-065','Hinjewadi Chowk',18.6073,73.7419),
+
+('STP-066','Sakal Nagar',18.5570,73.7912),
+('STP-067','DP Road',18.5605,73.7880),
+('STP-068','Baner Road',18.5590,73.7900),
+('STP-069','Baner',18.5622,73.7999),
+('STP-070','Baner Depot',18.5581,73.7921),
+
+('STP-071','Nigdi Chowk',18.6216,73.7957),
+('STP-072','Dange Chowk',18.6200,73.7930),
+('STP-073','Bhakti Shakti',18.6170,73.7890),
+('STP-074','Nigdi',18.6150,73.7940),
+('STP-075','Nigdi Station',18.6165,73.7922),
+
+('STP-076','Akurdi Station',18.6501,73.8033),
+('STP-077','Sector 25',18.6515,73.8060),
+('STP-078','PCMC Park',18.6520,73.8072),
+('STP-079','Akurdi Market',18.6530,73.8081),
+('STP-080','Akurdi Depot',18.6540,73.8090),
+
+('STP-081','Empire Estate',18.6209,73.8078),
+('STP-082','Elpro Mall',18.6218,73.8085),
+('STP-083','Thergaon',18.6225,73.8099),
+('STP-084','Chinchwad',18.6234,73.8110),
+('STP-085','Chinchwad Depot',18.6241,73.8122),
+
+('STP-086','Sangvi Phata',18.5660,73.8000),
+('STP-087','BRT Road',18.5672,73.8012),
+('STP-088','BRT Market',18.5683,73.8025),
+('STP-089','Aundh Market',18.5694,73.8036),
+('STP-090','Aundh Depot',18.5705,73.8047),
+
+('STP-091','Abhimanshree',18.5606,73.7871),
+('STP-092','Pashan Road',18.5615,73.7880),
+('STP-093','Sai Chowk',18.5624,73.7890),
+('STP-094','Pashan',18.5633,73.7900),
+('STP-095','Pashan Depot',18.5642,73.7910),
+
+('STP-096','Ravet Bridge',18.6350,73.7440),
+('STP-097','Sector 30',18.6361,73.7451),
+('STP-098','Ravet Pumping',18.6372,73.7462),
+('STP-099','Ravet Market',18.6383,73.7473),
+('STP-100','Ravet Depot',18.6394,73.7484);
+
+
 -- =====================================================
 -- 7) ROUTE_STOPS (mapping)
 -- =====================================================
@@ -206,6 +302,104 @@ VALUES
 ('RS-048','RTE-010','STP-048',3),
 ('RS-049','RTE-010','STP-049',4),
 ('RS-050','RTE-010','STP-050',5);
+
+
+INSERT INTO users (user_id, username, password, role, status)
+VALUES
+('USR-101','user101','pass101','STUDENT','ACTIVE'),
+('USR-102','user102','pass102','STUDENT','ACTIVE'),
+('USR-103','user103','pass103','STUDENT','ACTIVE'),
+('USR-104','user104','pass104','STUDENT','ACTIVE'),
+('USR-105','user105','pass105','STUDENT','ACTIVE'),
+('USR-106','user106','pass106','STUDENT','ACTIVE'),
+('USR-107','user107','pass107','STUDENT','ACTIVE'),
+('USR-108','user108','pass108','STUDENT','ACTIVE'),
+('USR-109','user109','pass109','STUDENT','ACTIVE'),
+('USR-110','user110','pass110','STUDENT','ACTIVE'),
+
+('USR-111','user111','pass111','STUDENT','ACTIVE'),
+('USR-112','user112','pass112','STUDENT','ACTIVE'),
+('USR-113','user113','pass113','STUDENT','ACTIVE'),
+('USR-114','user114','pass114','STUDENT','ACTIVE'),
+('USR-115','user115','pass115','STUDENT','ACTIVE'),
+('USR-116','user116','pass116','STUDENT','ACTIVE'),
+('USR-117','user117','pass117','STUDENT','ACTIVE'),
+('USR-118','user118','pass118','STUDENT','ACTIVE'),
+('USR-119','user119','pass119','STUDENT','ACTIVE'),
+('USR-120','user120','pass120','STUDENT','ACTIVE'),
+
+('USR-121','user121','pass121','STUDENT','ACTIVE'),
+('USR-122','user122','pass122','STUDENT','ACTIVE'),
+('USR-123','user123','pass123','STUDENT','ACTIVE'),
+('USR-124','user124','pass124','STUDENT','ACTIVE'),
+('USR-125','user125','pass125','STUDENT','ACTIVE'),
+('USR-126','user126','pass126','STUDENT','ACTIVE'),
+('USR-127','user127','pass127','STUDENT','ACTIVE'),
+('USR-128','user128','pass128','STUDENT','ACTIVE'),
+('USR-129','user129','pass129','STUDENT','ACTIVE'),
+('USR-130','user130','pass130','STUDENT','ACTIVE'),
+
+('USR-131','user131','pass131','STUDENT','ACTIVE'),
+('USR-132','user132','pass132','STUDENT','ACTIVE'),
+('USR-133','user133','pass133','STUDENT','ACTIVE'),
+('USR-134','user134','pass134','STUDENT','ACTIVE'),
+('USR-135','user135','pass135','STUDENT','ACTIVE'),
+('USR-136','user136','pass136','STUDENT','ACTIVE'),
+('USR-137','user137','pass137','STUDENT','ACTIVE'),
+('USR-138','user138','pass138','STUDENT','ACTIVE'),
+('USR-139','user139','pass139','STUDENT','ACTIVE'),
+('USR-140','user140','pass140','STUDENT','ACTIVE');
+
+ALTER TABLE users 
+ADD COLUMN status VARCHAR(20) DEFAULT 'ACTIVE';
+
+INSERT INTO users (user_id, username, password, role, status)
+VALUES
+('USR-101','user101','pass101','STUDENT','ACTIVE'),
+('USR-102','user102','pass102','STUDENT','ACTIVE'),
+('USR-103','user103','pass103','STUDENT','ACTIVE'),
+('USR-104','user104','pass104','STUDENT','ACTIVE'),
+('USR-105','user105','pass105','STUDENT','ACTIVE'),
+('USR-106','user106','pass106','STUDENT','ACTIVE'),
+('USR-107','user107','pass107','STUDENT','ACTIVE'),
+('USR-108','user108','pass108','STUDENT','ACTIVE'),
+('USR-109','user109','pass109','STUDENT','ACTIVE'),
+('USR-110','user110','pass110','STUDENT','ACTIVE'),
+
+('USR-111','user111','pass111','STUDENT','ACTIVE'),
+('USR-112','user112','pass112','STUDENT','ACTIVE'),
+('USR-113','user113','pass113','STUDENT','ACTIVE'),
+('USR-114','user114','pass114','STUDENT','ACTIVE'),
+('USR-115','user115','pass115','STUDENT','ACTIVE'),
+('USR-116','user116','pass116','STUDENT','ACTIVE'),
+('USR-117','user117','pass117','STUDENT','ACTIVE'),
+('USR-118','user118','pass118','STUDENT','ACTIVE'),
+('USR-119','user119','pass119','STUDENT','ACTIVE'),
+('USR-120','user120','pass120','STUDENT','ACTIVE'),
+
+('USR-121','user121','pass121','STUDENT','ACTIVE'),
+('USR-122','user122','pass122','STUDENT','ACTIVE'),
+('USR-123','user123','pass123','STUDENT','ACTIVE'),
+('USR-124','user124','pass124','STUDENT','ACTIVE'),
+('USR-125','user125','pass125','STUDENT','ACTIVE'),
+('USR-126','user126','pass126','STUDENT','ACTIVE'),
+('USR-127','user127','pass127','STUDENT','ACTIVE'),
+('USR-128','user128','pass128','STUDENT','ACTIVE'),
+('USR-129','user129','pass129','STUDENT','ACTIVE'),
+('USR-130','user130','pass130','STUDENT','ACTIVE'),
+
+('USR-131','user131','pass131','STUDENT','ACTIVE'),
+('USR-132','user132','pass132','STUDENT','ACTIVE'),
+('USR-133','user133','pass133','STUDENT','ACTIVE'),
+('USR-134','user134','pass134','STUDENT','ACTIVE'),
+('USR-135','user135','pass135','STUDENT','ACTIVE'),
+('USR-136','user136','pass136','STUDENT','ACTIVE'),
+('USR-137','user137','pass137','STUDENT','ACTIVE'),
+('USR-138','user138','pass138','STUDENT','ACTIVE'),
+('USR-139','user139','pass139','STUDENT','ACTIVE'),
+('USR-140','user140','pass140','STUDENT','ACTIVE');
+
+
 
 -- =====================================================
 -- 8) STUDENTS (40 students)
@@ -502,6 +696,10 @@ VALUES
 ('ATT-039','STU-039','2025-11-08','PRESENT','2025-11-08 09:03:00'),
 ('ATT-040','STU-040','2025-11-08','PRESENT','2025-11-08 09:04:00');
 
+
+ALTER TABLE fee_transactions 
+MODIFY payment_mode ENUM('CASH','UPI','CARD','BANK','ONLINE') NOT NULL;
+
 -- =====================================================
 -- 13) FEE_TRANSACTIONS (40 rows sample)
 -- =====================================================
@@ -580,6 +778,68 @@ VALUES
 ('GPS-019','BUS-008',18.5699,73.8040,'2025-11-13 08:07:20'),
 ('GPS-020','BUS-009',18.5615,73.7881,'2025-11-14 08:02:40');
 
+
+
+
+
+
+
+INSERT INTO fee_transactions (transaction_id, student_id, amount, payment_mode, status, transaction_date)
+VALUES
+('TXN-001','STU-001',12000.00,'UPI','SUCCESS','2025-08-05 10:00:00'),
+('TXN-002','STU-002',12000.00,'CASH','SUCCESS','2025-08-06 11:00:00'),
+('TXN-003','STU-003',12000.00,'CARD','SUCCESS','2025-08-07 12:00:00'),
+('TXN-004','STU-004',12000.00,'UPI','FAILED','2025-08-08 09:30:00'),
+('TXN-005','STU-005',12000.00,'ONLINE','SUCCESS','2025-08-10 15:00:00'),
+
+('TXN-006','STU-006',12000.00,'UPI','SUCCESS','2025-09-01 09:00:00'),
+('TXN-007','STU-007',12000.00,'CASH','SUCCESS','2025-09-03 10:30:00'),
+('TXN-008','STU-008',12000.00,'UPI','FAILED','2025-09-05 11:45:00'),
+('TXN-009','STU-009',12000.00,'CARD','SUCCESS','2025-09-07 14:20:00'),
+('TXN-010','STU-010',12000.00,'UPI','SUCCESS','2025-09-09 10:00:00'),
+
+('TXN-011','STU-011',12000.00,'UPI','SUCCESS','2025-09-11 09:10:00'),
+('TXN-012','STU-012',12000.00,'CASH','SUCCESS','2025-09-13 12:00:00'),
+('TXN-013','STU-013',12000.00,'CARD','SUCCESS','2025-09-15 13:00:00'),
+('TXN-014','STU-014',12000.00,'ONLINE','SUCCESS','2025-09-17 14:30:00'),
+('TXN-015','STU-015',12000.00,'UPI','FAILED','2025-09-19 08:50:00'),
+
+('TXN-016','STU-016',12000.00,'UPI','SUCCESS','2025-10-01 09:00:00'),
+('TXN-017','STU-017',12000.00,'CARD','SUCCESS','2025-10-02 10:10:00'),
+('TXN-018','STU-018',12000.00,'UPI','SUCCESS','2025-10-03 11:11:00'),
+('TXN-019','STU-019',12000.00,'ONLINE','SUCCESS','2025-10-04 14:00:00'),
+('TXN-020','STU-020',12000.00,'UPI','SUCCESS','2025-10-05 09:30:00'),
+
+('TXN-021','STU-021',12000.00,'UPI','SUCCESS','2025-10-06 09:00:00'),
+('TXN-022','STU-022',12000.00,'CASH','SUCCESS','2025-10-07 10:30:00'),
+('TXN-023','STU-023',12000.00,'CARD','SUCCESS','2025-10-08 11:45:00'),
+('TXN-024','STU-024',12000.00,'ONLINE','SUCCESS','2025-10-09 14:20:00'),
+('TXN-025','STU-025',12000.00,'UPI','SUCCESS','2025-10-10 09:10:00'),
+
+('TXN-026','STU-026',12000.00,'UPI','FAILED','2025-10-11 08:50:00'),
+('TXN-027','STU-027',12000.00,'CARD','SUCCESS','2025-10-12 10:00:00'),
+('TXN-028','STU-028',12000.00,'UPI','SUCCESS','2025-10-13 11:00:00'),
+('TXN-029','STU-029',12000.00,'ONLINE','SUCCESS','2025-10-14 12:30:00'),
+('TXN-030','STU-030',12000.00,'UPI','SUCCESS','2025-10-15 09:00:00'),
+
+('TXN-031','STU-031',12000.00,'UPI','SUCCESS','2025-11-01 09:10:00'),
+('TXN-032','STU-032',12000.00,'CASH','SUCCESS','2025-11-02 10:05:00'),
+('TXN-033','STU-033',12000.00,'CARD','SUCCESS','2025-11-03 11:25:00'),
+('TXN-034','STU-034',12000.00,'ONLINE','SUCCESS','2025-11-04 12:40:00'),
+('TXN-035','STU-035',12000.00,'UPI','SUCCESS','2025-11-05 13:00:00'),
+
+('TXN-036','STU-036',12000.00,'UPI','SUCCESS','2025-11-06 09:20:00'),
+('TXN-037','STU-037',12000.00,'CARD','SUCCESS','2025-11-07 10:30:00'),
+('TXN-038','STU-038',12000.00,'UPI','SUCCESS','2025-11-08 11:40:00'),
+('TXN-039','STU-039',12000.00,'ONLINE','SUCCESS','2025-11-09 12:50:00'),
+('TXN-040','STU-040',12000.00,'UPI','SUCCESS','2025-11-10 09:00:00');
+
+
+
+
+
+
+
 -- =====================================================
 -- 15) NOTIFICATIONS (sample - some sms/whatsapp notifications for parents & admins)
 -- =====================================================
@@ -592,4 +852,29 @@ VALUES
 ('NOT-005','PAR-004','SMS','Your child Priya Jadhav pass expired. Boarding denied at 08:05 AM.','SENT','2025-08-01 08:06:00','2025-08-01 08:06:00');
 
 -- Done. Sample moderate dataset inserted.
+
+
+INSERT INTO notifications (notification_id, recipient_id, type, message, status, sent_at, created_at)
+VALUES
+('NOT-101','PAR-001','SMS',
+ 'Your child Aarav Patil boarded bus BUS-001 at 08:02 AM. Driver: Mahesh Kale.',
+ 'SENT','2025-11-01 08:03:00','2025-11-01 08:03:00'),
+
+('NOT-102','PAR-002','SMS',
+ 'Your child Siya Kulkarni boarding failed (invalid pass) at 08:12 AM.',
+ 'SENT','2025-08-01 08:13:00','2025-08-01 08:13:00'),
+
+('NOT-103','PAR-003','WHATSAPP',
+ 'Reva has boarded the bus at 07:45 AM. Driver – Rahul. Bus No – MH12 AB 3456.',
+ 'SENT','2025-10-11 07:46:00','2025-10-11 07:46:00'),
+
+('NOT-104','ADM-001','SMS',
+ 'Bus BUS-003 reported delay on RTE-003 at 08:50 AM.',
+ 'PENDING',NULL,'2025-11-03 09:00:00'),
+
+('NOT-105','PAR-004','SMS',
+ 'Your child Priya Jadhav pass expired. Boarding denied at 08:05 AM.',
+ 'SENT','2025-08-01 08:06:00','2025-08-01 08:06:00');
+
+
 
