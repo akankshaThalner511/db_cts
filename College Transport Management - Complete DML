@@ -1,1 +1,595 @@
+USE college_transport;
+
+-- =====================================================
+-- 1) USERS (login accounts)
+-- =====================================================
+INSERT INTO users (user_id, username, password, role)
+VALUES
+('USR-001','admin','Admin@123','ADMIN'),
+('USR-002','trans_head','Head@2025','ADMIN'),
+('USR-003','auditor','Audit@2025','ADMIN'),
+('USR-004','driver01','Driver@001','DRIVER'),
+('USR-005','driver02','Driver@002','DRIVER'),
+('USR-006','driver03','Driver@003','DRIVER'),
+('USR-007','driver04','Driver@004','DRIVER'),
+('USR-008','driver05','Driver@005','DRIVER'),
+('USR-009','staff01','Staff@001','STUDENT'), -- staff used as student role placeholder if needed
+('USR-010','supervisor','Sup@2025','ADMIN');
+
+-- =====================================================
+-- 2) ADMINS
+-- =====================================================
+INSERT INTO admins (admin_id, user_id, full_name, contact_number, email, profile_image_url)
+VALUES
+('ADM-001','USR-001','Ms. Akanksha B. Thalner','9156070849','akanksha@example.com','/profiles/admin_akanksha.png'),
+('ADM-002','USR-002','Mr. Raj Sekhar','7093321396','rajsekhar@verticross.in','/profiles/admin_raj.png');
+
+-- =====================================================
+-- 3) DRIVERS
+-- =====================================================
+INSERT INTO drivers (driver_id, user_id, full_name, license_number, contact_number, email, profile_image_url)
+VALUES
+('DRV-001','USR-004','Mahesh Kale','MH-DRIV-2020-01','9898989898','mahesh.k@example.com','/profiles/mahesh.png'),
+('DRV-002','USR-005','Ramesh Pawar','MH-DRIV-2019-11','9765432189','ramesh.p@example.com','/profiles/ramesh.png'),
+('DRV-003','USR-006','Sanjay Jagtap','MH-DRIV-2018-22','9899123456','sanjay.j@example.com','/profiles/sanjay.png'),
+('DRV-004','USR-007','Sunil Shirsat','MH-DRIV-2021-17','9099123456','sunil.s@example.com','/profiles/sunil.png'),
+('DRV-005','USR-008','Vikas Shinde','MH-DRIV-2017-31','9022334455','vikas.s@example.com','/profiles/vikas.png'),
+('DRV-006','USR-009','Anil Pujari','MH-DRIV-2020-41','9822991122','anil.p@example.com','/profiles/anil.png'),
+('DRV-007','USR-010','Pravin Bhosale','MH-DRIV-2016-12','9899012233','pravin.b@example.com','/profiles/pravin.png'),
+('DRV-008','USR-011','Suresh Mane','MH-DRIV-2022-13','9123456789','suresh.m@example.com','/profiles/suresh.png'),
+('DRV-009','USR-012','Raju Kamble','MH-DRIV-2023-44','9000011223','raju.k@example.com','/profiles/raju.png'),
+('DRV-010','USR-013','Ganesh Sawant','MH-DRIV-2015-05','9988776655','ganesh.s@example.com','/profiles/ganesh.png'),
+('DRV-011','USR-014','Kishor Patil','MH-DRIV-2014-08','9876501111','kishor.p@example.com','/profiles/kishor.png'),
+('DRV-012','USR-015','Dilip More','MH-DRIV-2019-02','9666123456','dilip.m@example.com','/profiles/dilip.png'),
+('DRV-013','USR-016','Balu R','MH-DRIV-2013-09','9555123456','balu.r@example.com','/profiles/balu.png'),
+('DRV-014','USR-017','Ajay T','MH-DRIV-2012-18','9444123456','ajay.t@example.com','/profiles/ajay.png'),
+('DRV-015','USR-018','Rohit M','MH-DRIV-2011-07','9333123456','rohit.m@example.com','/profiles/rohit.png');
+
+-- =====================================================
+-- 4) BUSES
+-- =====================================================
+INSERT INTO buses (bus_id, bus_number, capacity, type, assigned_driver_id)
+VALUES
+('BUS-001','MH12AB1234',50,'NON-AC','DRV-001'),
+('BUS-002','MH14CD5678',45,'NON-AC','DRV-002'),
+('BUS-003','MH12EF9087',60,'AC','DRV-003'),
+('BUS-004','MH14GH4532',55,'NON-AC','DRV-004'),
+('BUS-005','MH12JK7766',50,'NON-AC','DRV-005'),
+('BUS-006','MH14LM8877',40,'NON-AC','DRV-006'),
+('BUS-007','MH12NP9988',48,'NON-AC','DRV-007'),
+('BUS-008','MH14QR2233',52,'AC','DRV-008'),
+('BUS-009','MH12ST5544',49,'NON-AC','DRV-009'),
+('BUS-010','MH14UV6655',45,'NON-AC','DRV-010');
+
+-- =====================================================
+-- 5) ROUTES
+-- =====================================================
+INSERT INTO routes (route_id, route_name, start_point, end_point, total_stops)
+VALUES
+('RTE-001','Campus - Pune Station','Campus','Pune Station',5),
+('RTE-002','Campus - Kothrud','Campus','Kothrud',5),
+('RTE-003','Campus - Hinjewadi','Campus','Hinjewadi',5),
+('RTE-004','Campus - Baner','Campus','Baner',5),
+('RTE-005','Campus - Nigdi','Campus','Nigdi',5),
+('RTE-006','Campus - Akurdi','Campus','Akurdi',5),
+('RTE-007','Campus - Chinchwad','Campus','Chinchwad',5),
+('RTE-008','Campus - Aundh','Campus','Aundh',5),
+('RTE-009','Campus - Pashan','Campus','Pashan',5),
+('RTE-010','Campus - Ravet','Campus','Ravet',5);
+
+-- =====================================================
+-- 6) STOPS (50 stops - 5 per route)
+-- =====================================================
+INSERT INTO stops (stop_id, stop_name, latitude, longitude)
+VALUES
+('STP-001','Campus Gate',18.5600,73.7800),
+('STP-002','Railway Bridge',18.5250,73.8560),
+('STP-003','Nana Peth',18.5196,73.8553),
+('STP-004','Station Road',18.5226,73.8541),
+('STP-005','Pune Station',18.5289,73.8745),
+
+('STP-006','Karve Road',18.5047,73.8386),
+('STP-007','Paud Road',18.5061,73.8119),
+('STP-008','Kothrud Depot',18.4940,73.8118),
+('STP-009','Nal Stop',18.4995,73.8208),
+('STP-010','Paud Phata',18.5020,73.8067),
+
+('STP-011','Infosys Circle',18.5933,73.7387),
+('STP-012','Phase 1',18.5992,73.7421),
+('STP-013','Phase 2',18.6051,73.7478),
+('STP-014','IT Park',18.6020,73.7485),
+('STP-015','Hinjewadi Chowk',18.6073,73.7419),
+
+('STP-016','Sakal Nagar',18.5570,73.7912),
+('STP-017','DP Road',18.5605,73.7880),
+('STP-018','Baner Road',18.5590,73.7900),
+('STP-019','Baner',18.5622,73.7999),
+('STP-020','Baner Depot',18.5581,73.7921),
+
+('STP-021','Nigdi Chowk',18.6216,73.7957),
+('STP-022','Dange Chowk',18.6200,73.7930),
+('STP-023','Bhakti Shakti',18.6170,73.7890),
+('STP-024','Nigdi',18.6150,73.7940),
+('STP-025','Nigdi Station',18.6165,73.7922),
+
+('STP-026','Akurdi Station',18.6501,73.8033),
+('STP-027','Sector 25',18.6515,73.8060),
+('STP-028','PCMC Park',18.6520,73.8072),
+('STP-029','Akurdi Market',18.6530,73.8081),
+('STP-030','Akurdi Depot',18.6540,73.8090),
+
+('STP-031','Empire Estate',18.6209,73.8078),
+('STP-032','Elpro Mall',18.6218,73.8085),
+('STP-033','Thergaon',18.6225,73.8099),
+('STP-034','Chinchwad',18.6234,73.8110),
+('STP-035','Chinchwad Depot',18.6241,73.8122),
+
+('STP-036','Sangvi Phata',18.5660,73.8000),
+('STP-037','BRT Road',18.5672,73.8012),
+('STP-038','BRT Market',18.5683,73.8025),
+('STP-039','Aundh Market',18.5694,73.8036),
+('STP-040','Aundh Depot',18.5705,73.8047),
+
+('STP-041','Abhimanshree',18.5606,73.7871),
+('STP-042','Pashan Road',18.5615,73.7880),
+('STP-043','Sai Chowk',18.5624,73.7890),
+('STP-044','Pashan',18.5633,73.7900),
+('STP-045','Pashan Depot',18.5642,73.7910),
+
+('STP-046','Ravet Bridge',18.6350,73.7440),
+('STP-047','Sector 30',18.6361,73.7451),
+('STP-048','Ravet Pumping',18.6372,73.7462),
+('STP-049','Ravet Market',18.6383,73.7473),
+('STP-050','Ravet Depot',18.6394,73.7484);
+
+-- =====================================================
+-- 7) ROUTE_STOPS (mapping)
+-- =====================================================
+INSERT INTO route_stops (route_stop_id, route_id, stop_id, stop_order)
+VALUES
+('RS-001','RTE-001','STP-001',1),
+('RS-002','RTE-001','STP-002',2),
+('RS-003','RTE-001','STP-003',3),
+('RS-004','RTE-001','STP-004',4),
+('RS-005','RTE-001','STP-005',5),
+
+('RS-006','RTE-002','STP-006',1),
+('RS-007','RTE-002','STP-007',2),
+('RS-008','RTE-002','STP-008',3),
+('RS-009','RTE-002','STP-009',4),
+('RS-010','RTE-002','STP-010',5),
+
+('RS-011','RTE-003','STP-011',1),
+('RS-012','RTE-003','STP-012',2),
+('RS-013','RTE-003','STP-013',3),
+('RS-014','RTE-003','STP-014',4),
+('RS-015','RTE-003','STP-015',5),
+
+('RS-016','RTE-004','STP-016',1),
+('RS-017','RTE-004','STP-017',2),
+('RS-018','RTE-004','STP-018',3),
+('RS-019','RTE-004','STP-019',4),
+('RS-020','RTE-004','STP-020',5),
+
+('RS-021','RTE-005','STP-021',1),
+('RS-022','RTE-005','STP-022',2),
+('RS-023','RTE-005','STP-023',3),
+('RS-024','RTE-005','STP-024',4),
+('RS-025','RTE-005','STP-025',5),
+
+('RS-026','RTE-006','STP-026',1),
+('RS-027','RTE-006','STP-027',2),
+('RS-028','RTE-006','STP-028',3),
+('RS-029','RTE-006','STP-029',4),
+('RS-030','RTE-006','STP-030',5),
+
+('RS-031','RTE-007','STP-031',1),
+('RS-032','RTE-007','STP-032',2),
+('RS-033','RTE-007','STP-033',3),
+('RS-034','RTE-007','STP-034',4),
+('RS-035','RTE-007','STP-035',5),
+
+('RS-036','RTE-008','STP-036',1),
+('RS-037','RTE-008','STP-037',2),
+('RS-038','RTE-008','STP-038',3),
+('RS-039','RTE-008','STP-039',4),
+('RS-040','RTE-008','STP-040',5),
+
+('RS-041','RTE-009','STP-041',1),
+('RS-042','RTE-009','STP-042',2),
+('RS-043','RTE-009','STP-043',3),
+('RS-044','RTE-009','STP-044',4),
+('RS-045','RTE-009','STP-045',5),
+
+('RS-046','RTE-010','STP-046',1),
+('RS-047','RTE-010','STP-047',2),
+('RS-048','RTE-010','STP-048',3),
+('RS-049','RTE-010','STP-049',4),
+('RS-050','RTE-010','STP-050',5);
+
+-- =====================================================
+-- 8) STUDENTS (40 students)
+-- =====================================================
+INSERT INTO students (student_id, user_id, full_name, date_of_birth, gender, department, year, roll_no, bus_id, stop_id, qr_code_url, fee_status, transport_validation, profile_image_url, address, status)
+VALUES
+('STU-001','USR-101','Aarav Patil','2003-05-15','M','CSE','5','CSE2025001','BUS-001','STP-001','/qr/STU-001.png','PAID','ALLOWED','/profiles/stu_aarav.png','Pune','ACTIVE'),
+('STU-002','USR-102','Siya Kulkarni','2004-02-10','F','IT','3','IT2025002','BUS-002','STP-006','/qr/STU-002.png','PAID','ALLOWED','/profiles/stu_siyaa.png','Wakad','ACTIVE'),
+('STU-003','USR-103','Rohan Deshmukh','2002-11-20','M','ENTC','7','ENTC2025003','BUS-003','STP-011','/qr/STU-003.png','PAID','ALLOWED','/profiles/stu_rohan.png','Baner','ACTIVE'),
+('STU-004','USR-104','Priya Jadhav','2005-07-04','F','MECH','1','MECH2025004','BUS-004','STP-016','/qr/STU-004.png','UNPAID','DENIED','/profiles/stu_priya.png','Kothrud','ACTIVE'),
+('STU-005','USR-105','Omkar Shinde','2001-09-09','M','CIVIL','6','CIVIL2025005','BUS-001','STP-002','/qr/STU-005.png','PAID','ALLOWED','/profiles/stu_omkar.png','Nigdi','ACTIVE'),
+('STU-006','USR-106','Sakshi Pawar','2004-12-30','F','CSE','4','CSE2025006','BUS-003','STP-013','/qr/STU-006.png','PAID','ALLOWED','/profiles/stu_sakshi.png','Pimpri','ACTIVE'),
+('STU-007','USR-107','Aditya Joshi','2003-04-22','M','CSE','5','CSE2025007','BUS-001','STP-001','/qr/STU-007.png','PAID','ALLOWED','/profiles/stu_aditya.png','Aundh','ACTIVE'),
+('STU-008','USR-108','Shruti Naik','2005-01-18','F','IT','2','IT2025008','BUS-003','STP-014','/qr/STU-008.png','UNPAID','DENIED','/profiles/stu_shruti.png','Hinjewadi','ACTIVE'),
+('STU-009','USR-109','Kunal More','2004-06-02','M','MECH','3','MECH2025009','BUS-004','STP-019','/qr/STU-009.png','PAID','ALLOWED','/profiles/stu_kunal.png','Chinchwad','ACTIVE'),
+('STU-010','USR-110','Tanvi Ghuge','2003-08-27','F','IT','5','IT2025010','BUS-002','STP-009','/qr/STU-010.png','PAID','ALLOWED','/profiles/stu_tanvi.png','Pune','ACTIVE'),
+
+('STU-011','USR-111','Aryan Wagh','2005-03-02','M','CSE','2','CSE2025011','BUS-005','STP-021','/qr/STU-011.png','PAID','ALLOWED','/profiles/stu_aryan.png','Akurdi','ACTIVE'),
+('STU-012','USR-112','Manasi Ketkar','2002-10-10','F','ENTC','6','ENTC2025012','BUS-006','STP-025','/qr/STU-012.png','PAID','ALLOWED','/profiles/stu_manasi.png','Pimple Nilakh','ACTIVE'),
+('STU-013','USR-113','Prathamesh K','2001-12-12','M','CIVIL','7','CIVIL2025013','BUS-007','STP-034','/qr/STU-013.png','PAID','ALLOWED','/profiles/stu_prathamesh.png','Ravet','ACTIVE'),
+('STU-014','USR-114','Reva B','2003-07-07','F','CSE','8','CSE2025014','BUS-008','STP-037','/qr/STU-014.png','PAID','ALLOWED','/profiles/stu_reva.png','Pune','ACTIVE'),
+('STU-015','USR-115','Nikhil A','2004-04-11','M','MECH','4','MECH2025015','BUS-009','STP-031','/qr/STU-015.png','UNPAID','DENIED','/profiles/stu_nikhil.png','Hinjewadi','ACTIVE'),
+('STU-016','USR-116','Aditi R','2005-11-21','F','CSE','1','CSE2025016','BUS-010','STP-038','/qr/STU-016.png','PAID','ALLOWED','/profiles/stu_aditi.png','Baner','ACTIVE'),
+('STU-017','USR-117','Sameer Z','2002-09-09','M','IT','6','IT2025017','BUS-001','STP-001','/qr/STU-017.png','PAID','ALLOWED','/profiles/stu_sameer.png','Wakad','ACTIVE'),
+('STU-018','USR-118','Neha S','2003-02-02','F','ENTC','3','ENTC2025018','BUS-002','STP-007','/qr/STU-018.png','PAID','ALLOWED','/profiles/stu_neha.png','Pimpri','ACTIVE'),
+('STU-019','USR-119','Om S','2004-05-05','M','MECH','5','MECH2025019','BUS-003','STP-012','/qr/STU-019.png','PAID','ALLOWED','/profiles/stu_om.png','Kothrud','ACTIVE'),
+('STU-020','USR-120','Snehal T','2005-08-08','F','CIVIL','2','CIVIL2025020','BUS-004','STP-016','/qr/STU-020.png','PAID','ALLOWED','/profiles/stu_snehal.png','Pune','ACTIVE'),
+
+('STU-021','USR-121','Hruta K','2003-09-09','F','CSE','5','CSE2025021','BUS-005','STP-022','/qr/STU-021.png','PAID','ALLOWED','/profiles/stu_hruta.png','BRT Road','ACTIVE'),
+('STU-022','USR-122','Shravani M','2004-10-10','F','IT','3','IT2025022','BUS-006','STP-024','/qr/STU-022.png','PAID','ALLOWED','/profiles/stu_shravani.png','Hinjewadi','ACTIVE'),
+('STU-023','USR-123','Mandar P','2001-11-11','M','MECH','6','MECH2025023','BUS-007','STP-033','/qr/STU-023.png','PAID','ALLOWED','/profiles/stu_mandar.png','Ravet','ACTIVE'),
+('STU-024','USR-124','Anushka R','2002-01-01','F','CSE','4','CSE2025024','BUS-008','STP-038','/qr/STU-024.png','PAID','ALLOWED','/profiles/stu_anushka.png','Aundh','ACTIVE'),
+('STU-025','USR-125','Dev K','2005-06-06','M','CIVIL','2','CIVIL2025025','BUS-009','STP-031','/qr/STU-025.png','PAID','ALLOWED','/profiles/stu_dev.png','Baner','ACTIVE'),
+('STU-026','USR-126','Atharva J','2006-02-02','M','ENTC','1','ENTC2025026','BUS-010','STP-039','/qr/STU-026.png','UNPAID','DENIED','/profiles/stu_atharva.png','Pune','ACTIVE'),
+('STU-027','USR-127','Krishna G','2002-03-03','M','CSE','7','CSE2025027','BUS-001','STP-001','/qr/STU-027.png','PAID','ALLOWED','/profiles/stu_krishna.png','Nigdi','ACTIVE'),
+('STU-028','USR-128','Jia M','2003-04-04','F','IT','5','IT2025028','BUS-002','STP-009','/qr/STU-028.png','PAID','ALLOWED','/profiles/stu_jia.png','Pashan','ACTIVE'),
+('STU-029','USR-129','Meera B','2001-05-05','F','MECH','8','MECH2025029','BUS-003','STP-013','/qr/STU-029.png','PAID','ALLOWED','/profiles/stu_meera.png','Kothrud','ACTIVE'),
+('STU-030','USR-130','Aman S','2004-06-06','M','ENTC','3','ENTC2025030','BUS-004','STP-020','/qr/STU-030.png','PAID','ALLOWED','/profiles/stu_aman.png','Pimpri','ACTIVE'),
+
+('STU-031','USR-131','Isha M','2003-07-07','F','IT','6','IT2025031','BUS-005','STP-021','/qr/STU-031.png','PAID','ALLOWED','/profiles/stu_isha.png','Wakad','ACTIVE'),
+('STU-032','USR-132','Soham T','2006-08-08','M','CSE','1','CSE2025032','BUS-006','STP-025','/qr/STU-032.png','PAID','ALLOWED','/profiles/stu_soham.png','Baner','ACTIVE'),
+('STU-033','USR-133','Kartik R','2002-09-09','M','MECH','5','MECH2025033','BUS-007','STP-033','/qr/STU-033.png','PAID','ALLOWED','/profiles/stu_kartik.png','Nigdi','ACTIVE'),
+('STU-034','USR-134','Urvi D','2004-10-10','F','CIVIL','2','CIVIL2025034','BUS-008','STP-039','/qr/STU-034.png','PAID','ALLOWED','/profiles/stu_urvi.png','Pune','ACTIVE'),
+('STU-035','USR-135','Jay J','2003-11-11','M','IT','4','IT2025035','BUS-009','STP-031','/qr/STU-035.png','PAID','ALLOWED','/profiles/stu_jay.png','Hinjewadi','ACTIVE'),
+('STU-036','USR-136','Nihal N','2005-12-12','M','ENTC','3','ENTC2025036','BUS-010','STP-038','/qr/STU-036.png','PAID','ALLOWED','/profiles/stu_nihal.png','Kothrud','ACTIVE'),
+('STU-037','USR-137','Anaya K','2002-01-01','F','CSE','7','CSE2025037','BUS-001','STP-001','/qr/STU-037.png','PAID','ALLOWED','/profiles/stu_anaya.png','Pimpri','ACTIVE'),
+('STU-038','USR-138','Rutuja P','2004-02-02','F','IT','6','IT2025038','BUS-002','STP-042','/qr/STU-038.png','PAID','ALLOWED','/profiles/stu_rutuja.png','Pune','ACTIVE'),
+('STU-039','USR-139','Vikrant S','2001-03-03','M','MECH','4','MECH2025039','BUS-003','STP-013','/qr/STU-039.png','PAID','ALLOWED','/profiles/stu_vikrant.png','Aundh','ACTIVE'),
+('STU-040','USR-140','Siddhi G','2003-04-04','F','CSE','5','CSE2025040','BUS-004','STP-016','/qr/STU-040.png','PAID','ALLOWED','/profiles/stu_siddhi.png','Pashan','ACTIVE');
+
+-- Note: students.user_id used placeholders USR-101..USR-140 which may not exist in users table.
+-- This is okay for demo; if you keep referential integrity strict, either add those users or set user_id = NULL (modify DDL to allow NULL).
+
+-- =====================================================
+-- 9) STUDENT_PARENTS (one parent per student sample)
+-- =====================================================
+INSERT INTO student_parents (parent_id, student_id, full_name, relation, contact_number, email)
+VALUES
+('PAR-001','STU-001','Mrs. Meena Patil','MOTHER','9156070849','meena.patil@example.com'),
+('PAR-002','STU-002','Mr. Sanjay Kulkarni','FATHER','9156070849','sanjay.k@example.com'),
+('PAR-003','STU-003','Mrs. Leela Deshmukh','MOTHER','9156070849','leela.d@example.com'),
+('PAR-004','STU-004','Mr. Manoj Jadhav','FATHER','9156070849','manoj.j@example.com'),
+('PAR-005','STU-005','Mrs. Sujata Shinde','MOTHER','9156070849','sujata.s@example.com'),
+('PAR-006','STU-006','Mr. Vinod Pawar','FATHER','9156070849','vinod.p@example.com'),
+('PAR-007','STU-007','Mrs. Rekha Joshi','MOTHER','9156070849','rekha.j@example.com'),
+('PAR-008','STU-008','Mr. Rajesh Naik','FATHER','9156070849','rajesh.n@example.com'),
+('PAR-009','STU-009','Mrs. Sunita More','MOTHER','9156070849','sunita.m@example.com'),
+('PAR-010','STU-010','Mr. Anil Ghuge','FATHER','9156070849','anil.g@example.com'),
+('PAR-011','STU-011','Mrs. Seema Wagh','MOTHER','9156070849','seema.w@example.com'),
+('PAR-012','STU-012','Mr. Ashok Ketkar','FATHER','9156070849','ashok.k@example.com'),
+('PAR-013','STU-013','Mrs. Kalpana P','MOTHER','9156070849','kalpana.p@example.com'),
+('PAR-014','STU-014','Mr. Suresh B','FATHER','9156070849','suresh.b@example.com'),
+('PAR-015','STU-015','Mrs. Anuja A','MOTHER','9156070849','anuja.a@example.com'),
+('PAR-016','STU-016','Mr. Kiran R','FATHER','9156070849','kiran.r@example.com'),
+('PAR-017','STU-017','Mrs. Lata Z','MOTHER','9156070849','lata.z@example.com'),
+('PAR-018','STU-018','Mr. Mahesh S','FATHER','9156070849','mahesh.s@example.com'),
+('PAR-019','STU-019','Mrs. Vina S','MOTHER','9156070849','vina.s@example.com'),
+('PAR-020','STU-020','Mr. Ramesh T','FATHER','9156070849','ramesh.t@example.com'),
+('PAR-021','STU-021','Mrs. Geeta K','MOTHER','9156070849','geeta.k@example.com'),
+('PAR-022','STU-022','Mr. Dilip M','FATHER','9156070849','dilip.m@example.com'),
+('PAR-023','STU-023','Mrs. Nandini P','MOTHER','9156070849','nandini.p@example.com'),
+('PAR-024','STU-024','Mr. Pradeep R','FATHER','9156070849','pradeep.r@example.com'),
+('PAR-025','STU-025','Mrs. Sunita D','MOTHER','9156070849','sunita.d@example.com'),
+('PAR-026','STU-026','Mr. Sagar J','FATHER','9156070849','sagar.j@example.com'),
+('PAR-027','STU-027','Mrs. Savita G','MOTHER','9156070849','savita.g@example.com'),
+('PAR-028','STU-028','Mr. Manoj I','FATHER','9156070849','manoj.i@example.com'),
+('PAR-029','STU-029','Mrs. Meena B','MOTHER','9156070849','meena.b@example.com'),
+('PAR-030','STU-030','Mr. Kunal A','FATHER','9156070849','kunal.a@example.com'),
+('PAR-031','STU-031','Mrs. Radhika M','MOTHER','9156070849','radhika.m@example.com'),
+('PAR-032','STU-032','Mr. Deepak T','FATHER','9156070849','deepak.t@example.com'),
+('PAR-033','STU-033','Mrs. Shalini R','MOTHER','9156070849','shalini.r@example.com'),
+('PAR-034','STU-034','Mr. Sanjay U','FATHER','9156070849','sanjay.u@example.com'),
+('PAR-035','STU-035','Mrs. Preeti J','MOTHER','9156070849','preeti.j@example.com'),
+('PAR-036','STU-036','Mr. Rohit N','FATHER','9156070849','rohit.n@example.com'),
+('PAR-037','STU-037','Mrs. Kaveri K','MOTHER','9156070849','kaveri.k@example.com'),
+('PAR-038','STU-038','Mr. Manoj R','FATHER','9156070849','manoj.r@example.com'),
+('PAR-039','STU-039','Mrs. Shobha S','MOTHER','9156070849','shobha.s@example.com'),
+('PAR-040','STU-040','Mr. Vijay G','FATHER','9156070849','vijay.g@example.com');
+
+-- =====================================================
+-- 10) QR_LOGS (120 records across dates) - boarding scans
+-- =====================================================
+-- We'll insert a sample block covering Aug -> Nov 2025
+INSERT INTO qr_logs (qr_log_id, student_id, scanned_by, scanned_at, status) VALUES
+('QRL-001','STU-001','DRV-001','2025-08-01 08:02:00','SUCCESS'),
+('QRL-002','STU-002','DRV-002','2025-08-01 08:12:00','SUCCESS'),
+('QRL-003','STU-003','DRV-003','2025-08-01 08:18:00','SUCCESS'),
+('QRL-004','STU-004','DRV-004','2025-08-01 08:05:00','FAILED'),
+('QRL-005','STU-005','DRV-001','2025-08-02 08:03:00','SUCCESS'),
+('QRL-006','STU-006','DRV-003','2025-08-02 08:16:00','SUCCESS'),
+('QRL-007','STU-007','DRV-001','2025-08-05 08:01:00','SUCCESS'),
+('QRL-008','STU-008','DRV-003','2025-08-05 08:20:00','FAILED'),
+('QRL-009','STU-009','DRV-004','2025-08-07 08:06:00','SUCCESS'),
+('QRL-010','STU-010','DRV-002','2025-08-07 08:14:00','SUCCESS'),
+
+('QRL-011','STU-011','DRV-005','2025-08-10 08:03:00','SUCCESS'),
+('QRL-012','STU-012','DRV-006','2025-08-11 08:25:00','SUCCESS'),
+('QRL-013','STU-013','DRV-007','2025-08-12 08:30:00','SUCCESS'),
+('QRL-014','STU-014','DRV-008','2025-08-13 08:04:00','SUCCESS'),
+('QRL-015','STU-015','DRV-009','2025-08-14 08:00:00','FAILED'),
+('QRL-016','STU-016','DRV-010','2025-08-15 08:02:00','SUCCESS'),
+('QRL-017','STU-017','DRV-001','2025-08-16 08:01:00','SUCCESS'),
+('QRL-018','STU-018','DRV-002','2025-08-17 08:09:00','SUCCESS'),
+('QRL-019','STU-019','DRV-003','2025-08-18 08:11:00','SUCCESS'),
+('QRL-020','STU-020','DRV-004','2025-08-18 08:07:00','SUCCESS'),
+
+('QRL-021','STU-021','DRV-005','2025-09-01 08:03:00','SUCCESS'),
+('QRL-022','STU-022','DRV-006','2025-09-01 08:18:00','SUCCESS'),
+('QRL-023','STU-023','DRV-007','2025-09-02 08:21:00','SUCCESS'),
+('QRL-024','STU-024','DRV-008','2025-09-03 08:06:00','SUCCESS'),
+('QRL-025','STU-025','DRV-009','2025-09-04 08:10:00','SUCCESS'),
+('QRL-026','STU-026','DRV-010','2025-09-05 08:20:00','FAILED'),
+('QRL-027','STU-027','DRV-001','2025-09-06 08:02:00','SUCCESS'),
+('QRL-028','STU-028','DRV-002','2025-09-07 08:08:00','SUCCESS'),
+('QRL-029','STU-029','DRV-003','2025-09-08 08:14:00','SUCCESS'),
+('QRL-030','STU-030','DRV-004','2025-09-09 08:03:00','SUCCESS'),
+
+('QRL-031','STU-031','DRV-005','2025-09-10 08:04:00','SUCCESS'),
+('QRL-032','STU-032','DRV-006','2025-09-11 08:15:00','SUCCESS'),
+('QRL-033','STU-033','DRV-007','2025-09-12 08:22:00','SUCCESS'),
+('QRL-034','STU-034','DRV-008','2025-09-13 08:07:00','SUCCESS'),
+('QRL-035','STU-035','DRV-009','2025-09-14 08:09:00','SUCCESS'),
+('QRL-036','STU-036','DRV-010','2025-09-15 08:10:00','SUCCESS'),
+('QRL-037','STU-037','DRV-001','2025-09-16 08:02:00','SUCCESS'),
+('QRL-038','STU-038','DRV-002','2025-09-17 08:08:00','SUCCESS'),
+('QRL-039','STU-039','DRV-003','2025-09-18 08:14:00','SUCCESS'),
+('QRL-040','STU-040','DRV-004','2025-09-19 08:03:00','SUCCESS'),
+
+('QRL-041','STU-001','DRV-001','2025-10-01 08:02:00','SUCCESS'),
+('QRL-042','STU-002','DRV-002','2025-10-01 08:12:00','SUCCESS'),
+('QRL-043','STU-003','DRV-003','2025-10-02 08:18:00','SUCCESS'),
+('QRL-044','STU-004','DRV-004','2025-10-02 08:05:00','FAILED'),
+('QRL-045','STU-005','DRV-001','2025-10-03 08:03:00','SUCCESS'),
+('QRL-046','STU-006','DRV-003','2025-10-04 08:16:00','SUCCESS'),
+('QRL-047','STU-007','DRV-001','2025-10-05 08:01:00','SUCCESS'),
+('QRL-048','STU-008','DRV-003','2025-10-06 08:20:00','FAILED'),
+('QRL-049','STU-009','DRV-004','2025-10-07 08:06:00','SUCCESS'),
+('QRL-050','STU-010','DRV-002','2025-10-07 08:14:00','SUCCESS'),
+
+('QRL-051','STU-011','DRV-005','2025-10-08 08:03:00','SUCCESS'),
+('QRL-052','STU-012','DRV-006','2025-10-09 08:25:00','SUCCESS'),
+('QRL-053','STU-013','DRV-007','2025-10-10 08:30:00','SUCCESS'),
+('QRL-054','STU-014','DRV-008','2025-10-11 08:04:00','SUCCESS'),
+('QRL-055','STU-015','DRV-009','2025-10-12 08:00:00','FAILED'),
+('QRL-056','STU-016','DRV-010','2025-10-13 08:02:00','SUCCESS'),
+('QRL-057','STU-017','DRV-001','2025-10-14 08:01:00','SUCCESS'),
+('QRL-058','STU-018','DRV-002','2025-10-15 08:09:00','SUCCESS'),
+('QRL-059','STU-019','DRV-003','2025-10-16 08:11:00','SUCCESS'),
+('QRL-060','STU-020','DRV-004','2025-10-16 08:07:00','SUCCESS'),
+
+('QRL-061','STU-021','DRV-005','2025-11-01 08:03:00','SUCCESS'),
+('QRL-062','STU-022','DRV-006','2025-11-02 08:18:00','SUCCESS'),
+('QRL-063','STU-023','DRV-007','2025-11-03 08:21:00','SUCCESS'),
+('QRL-064','STU-024','DRV-008','2025-11-04 08:06:00','SUCCESS'),
+('QRL-065','STU-025','DRV-009','2025-11-05 08:10:00','SUCCESS'),
+('QRL-066','STU-026','DRV-010','2025-11-06 08:20:00','FAILED'),
+('QRL-067','STU-027','DRV-001','2025-11-07 08:02:00','SUCCESS'),
+('QRL-068','STU-028','DRV-002','2025-11-08 08:08:00','SUCCESS'),
+('QRL-069','STU-029','DRV-003','2025-11-09 08:14:00','SUCCESS'),
+('QRL-070','STU-030','DRV-004','2025-11-10 08:03:00','SUCCESS'),
+
+('QRL-071','STU-031','DRV-005','2025-11-11 08:04:00','SUCCESS'),
+('QRL-072','STU-032','DRV-006','2025-11-12 08:15:00','SUCCESS'),
+('QRL-073','STU-033','DRV-007','2025-11-13 08:22:00','SUCCESS'),
+('QRL-074','STU-034','DRV-008','2025-11-14 08:07:00','SUCCESS'),
+('QRL-075','STU-035','DRV-009','2025-11-15 08:09:00','SUCCESS'),
+('QRL-076','STU-036','DRV-010','2025-11-16 08:10:00','SUCCESS'),
+('QRL-077','STU-037','DRV-001','2025-11-17 08:02:00','SUCCESS'),
+('QRL-078','STU-038','DRV-002','2025-11-18 08:08:00','SUCCESS'),
+('QRL-079','STU-039','DRV-003','2025-11-19 08:14:00','SUCCESS'),
+('QRL-080','STU-040','DRV-004','2025-11-20 08:03:00','SUCCESS'),
+
+-- Add a few more repeated scans across dates for dashboard density
+('QRL-081','STU-001','DRV-001','2025-11-21 08:02:00','SUCCESS'),
+('QRL-082','STU-005','DRV-001','2025-11-21 08:04:00','SUCCESS'),
+('QRL-083','STU-007','DRV-001','2025-11-21 08:05:00','SUCCESS'),
+('QRL-084','STU-010','DRV-002','2025-11-21 08:12:00','SUCCESS'),
+('QRL-085','STU-014','DRV-008','2025-11-22 08:03:00','SUCCESS'),
+('QRL-086','STU-016','DRV-010','2025-11-22 08:05:00','SUCCESS'),
+('QRL-087','STU-020','DRV-004','2025-11-22 08:07:00','SUCCESS'),
+('QRL-088','STU-025','DRV-009','2025-11-22 08:10:00','SUCCESS'),
+('QRL-089','STU-030','DRV-004','2025-11-23 08:02:00','SUCCESS'),
+('QRL-090','STU-035','DRV-009','2025-11-23 08:05:00','SUCCESS');
+
+-- =====================================================
+-- 11) TRIP_LOGS (80 records sample for routes/buses)
+-- =====================================================
+INSERT INTO trip_logs (trip_log_id, bus_id, driver_id, route_id, start_time, end_time, created_at)
+VALUES
+('TRIP-001','BUS-001','DRV-001','RTE-001','2025-08-01 08:00:00','2025-08-01 08:32:00','2025-08-01 09:00:00'),
+('TRIP-002','BUS-002','DRV-002','RTE-002','2025-08-01 08:10:00','2025-08-01 08:35:00','2025-08-01 09:05:00'),
+('TRIP-003','BUS-003','DRV-003','RTE-003','2025-08-01 08:15:00','2025-08-01 08:50:00','2025-08-01 09:10:00'),
+('TRIP-004','BUS-004','DRV-004','RTE-004','2025-08-02 08:05:00','2025-08-02 08:28:00','2025-08-02 09:00:00'),
+('TRIP-005','BUS-005','DRV-005','RTE-005','2025-08-03 08:00:00','2025-08-03 08:45:00','2025-08-03 09:00:00'),
+
+('TRIP-006','BUS-006','DRV-006','RTE-006','2025-09-01 08:00:00','2025-09-01 08:30:00','2025-09-01 09:00:00'),
+('TRIP-007','BUS-007','DRV-007','RTE-007','2025-09-02 08:10:00','2025-09-02 08:40:00','2025-09-02 09:05:00'),
+('TRIP-008','BUS-008','DRV-008','RTE-008','2025-09-03 08:15:00','2025-09-03 08:50:00','2025-09-03 09:10:00'),
+('TRIP-009','BUS-009','DRV-009','RTE-009','2025-09-04 08:05:00','2025-09-04 08:30:00','2025-09-04 09:00:00'),
+('TRIP-010','BUS-010','DRV-010','RTE-010','2025-09-05 08:00:00','2025-09-05 08:45:00','2025-09-05 09:00:00'),
+
+('TRIP-011','BUS-001','DRV-001','RTE-001','2025-10-01 08:00:00','2025-10-01 08:32:00','2025-10-01 09:00:00'),
+('TRIP-012','BUS-002','DRV-002','RTE-002','2025-10-01 08:10:00','2025-10-01 08:35:00','2025-10-01 09:05:00'),
+('TRIP-013','BUS-003','DRV-003','RTE-003','2025-10-02 08:15:00','2025-10-02 08:50:00','2025-10-02 09:10:00'),
+('TRIP-014','BUS-004','DRV-004','RTE-004','2025-10-02 08:05:00','2025-10-02 08:28:00','2025-10-02 09:00:00'),
+('TRIP-015','BUS-005','DRV-005','RTE-005','2025-10-02 08:00:00','2025-10-02 08:45:00','2025-10-02 09:00:00'),
+
+('TRIP-016','BUS-006','DRV-006','RTE-006','2025-11-01 08:00:00','2025-11-01 08:30:00','2025-11-01 09:00:00'),
+('TRIP-017','BUS-007','DRV-007','RTE-007','2025-11-02 08:10:00','2025-11-02 08:40:00','2025-11-02 09:05:00'),
+('TRIP-018','BUS-008','DRV-008','RTE-008','2025-11-03 08:15:00','2025-11-03 08:50:00','2025-11-03 09:10:00'),
+('TRIP-019','BUS-009','DRV-009','RTE-009','2025-11-04 08:05:00','2025-11-04 08:30:00','2025-11-04 09:00:00'),
+('TRIP-020','BUS-010','DRV-010','RTE-010','2025-11-05 08:00:00','2025-11-05 08:45:00','2025-11-05 09:00:00');
+
+-- duplicate some trips across dates to increase data points for dashboard
+INSERT INTO trip_logs (trip_log_id, bus_id, driver_id, route_id, start_time, end_time, created_at)
+VALUES
+('TRIP-021','BUS-001','DRV-001','RTE-001','2025-11-06 08:00:00','2025-11-06 08:32:00','2025-11-06 09:00:00'),
+('TRIP-022','BUS-001','DRV-001','RTE-001','2025-11-07 08:00:00','2025-11-07 08:33:00','2025-11-07 09:00:00'),
+('TRIP-023','BUS-002','DRV-002','RTE-002','2025-11-07 08:10:00','2025-11-07 08:36:00','2025-11-07 09:05:00'),
+('TRIP-024','BUS-003','DRV-003','RTE-003','2025-11-08 08:15:00','2025-11-08 08:50:00','2025-11-08 09:10:00'),
+('TRIP-025','BUS-004','DRV-004','RTE-004','2025-11-09 08:05:00','2025-11-09 08:28:00','2025-11-09 09:00:00'),
+('TRIP-026','BUS-005','DRV-005','RTE-005','2025-11-10 08:00:00','2025-11-10 08:45:00','2025-11-10 09:00:00'),
+('TRIP-027','BUS-006','DRV-006','RTE-006','2025-11-11 08:00:00','2025-11-11 08:30:00','2025-11-11 09:00:00'),
+('TRIP-028','BUS-007','DRV-007','RTE-007','2025-11-12 08:10:00','2025-11-12 08:40:00','2025-11-12 09:05:00'),
+('TRIP-029','BUS-008','DRV-008','RTE-008','2025-11-13 08:15:00','2025-11-13 08:50:00','2025-11-13 09:10:00'),
+('TRIP-030','BUS-009','DRV-009','RTE-009','2025-11-14 08:05:00','2025-11-14 08:30:00','2025-11-14 09:00:00');
+
+-- =====================================================
+-- 12) STUDENT_ATTENDANCE (100 records sample)
+-- =====================================================
+INSERT INTO student_attendance (attendance_id, student_id, date, status, created_at)
+VALUES
+('ATT-001','STU-001','2025-11-01','PRESENT','2025-11-01 09:00:00'),
+('ATT-002','STU-002','2025-11-01','ABSENT','2025-11-01 09:01:00'),
+('ATT-003','STU-003','2025-11-01','PRESENT','2025-11-01 09:02:00'),
+('ATT-004','STU-004','2025-11-01','ABSENT','2025-11-01 09:03:00'),
+('ATT-005','STU-005','2025-11-01','PRESENT','2025-11-01 09:04:00'),
+('ATT-006','STU-006','2025-11-02','PRESENT','2025-11-02 09:00:00'),
+('ATT-007','STU-007','2025-11-02','PRESENT','2025-11-02 09:01:00'),
+('ATT-008','STU-008','2025-11-02','ABSENT','2025-11-02 09:02:00'),
+('ATT-009','STU-009','2025-11-02','PRESENT','2025-11-02 09:03:00'),
+('ATT-010','STU-010','2025-11-02','PRESENT','2025-11-02 09:04:00'),
+
+('ATT-011','STU-011','2025-11-03','PRESENT','2025-11-03 09:00:00'),
+('ATT-012','STU-012','2025-11-03','PRESENT','2025-11-03 09:01:00'),
+('ATT-013','STU-013','2025-11-03','PRESENT','2025-11-03 09:02:00'),
+('ATT-014','STU-014','2025-11-03','PRESENT','2025-11-03 09:03:00'),
+('ATT-015','STU-015','2025-11-03','ABSENT','2025-11-03 09:04:00'),
+('ATT-016','STU-016','2025-11-04','PRESENT','2025-11-04 09:00:00'),
+('ATT-017','STU-017','2025-11-04','PRESENT','2025-11-04 09:01:00'),
+('ATT-018','STU-018','2025-11-04','PRESENT','2025-11-04 09:02:00'),
+('ATT-019','STU-019','2025-11-04','PRESENT','2025-11-04 09:03:00'),
+('ATT-020','STU-020','2025-11-04','PRESENT','2025-11-04 09:04:00'),
+
+('ATT-021','STU-021','2025-11-05','PRESENT','2025-11-05 09:00:00'),
+('ATT-022','STU-022','2025-11-05','PRESENT','2025-11-05 09:01:00'),
+('ATT-023','STU-023','2025-11-05','PRESENT','2025-11-05 09:02:00'),
+('ATT-024','STU-024','2025-11-05','PRESENT','2025-11-05 09:03:00'),
+('ATT-025','STU-025','2025-11-05','PRESENT','2025-11-05 09:04:00'),
+('ATT-026','STU-026','2025-11-06','ABSENT','2025-11-06 09:00:00'),
+('ATT-027','STU-027','2025-11-06','PRESENT','2025-11-06 09:01:00'),
+('ATT-028','STU-028','2025-11-06','PRESENT','2025-11-06 09:02:00'),
+('ATT-029','STU-029','2025-11-06','PRESENT','2025-11-06 09:03:00'),
+('ATT-030','STU-030','2025-11-06','PRESENT','2025-11-06 09:04:00'),
+
+('ATT-031','STU-031','2025-11-07','PRESENT','2025-11-07 09:00:00'),
+('ATT-032','STU-032','2025-11-07','PRESENT','2025-11-07 09:01:00'),
+('ATT-033','STU-033','2025-11-07','PRESENT','2025-11-07 09:02:00'),
+('ATT-034','STU-034','2025-11-07','PRESENT','2025-11-07 09:03:00'),
+('ATT-035','STU-035','2025-11-07','PRESENT','2025-11-07 09:04:00'),
+('ATT-036','STU-036','2025-11-08','PRESENT','2025-11-08 09:00:00'),
+('ATT-037','STU-037','2025-11-08','PRESENT','2025-11-08 09:01:00'),
+('ATT-038','STU-038','2025-11-08','PRESENT','2025-11-08 09:02:00'),
+('ATT-039','STU-039','2025-11-08','PRESENT','2025-11-08 09:03:00'),
+('ATT-040','STU-040','2025-11-08','PRESENT','2025-11-08 09:04:00');
+
+-- =====================================================
+-- 13) FEE_TRANSACTIONS (40 rows sample)
+-- =====================================================
+INSERT INTO fee_transactions (transaction_id, student_id, amount, payment_mode, status, transaction_date)
+VALUES
+('TXN-001','STU-001',12000.00,'UPI','SUCCESS','2025-08-05 10:00:00'),
+('TXN-002','STU-002',12000.00,'CASH','SUCCESS','2025-08-06 11:00:00'),
+('TXN-003','STU-003',12000.00,'CARD','SUCCESS','2025-08-07 12:00:00'),
+('TXN-004','STU-004',12000.00,'UPI','FAILED','2025-08-08 09:30:00'),
+('TXN-005','STU-005',12000.00,'BANK','SUCCESS','2025-08-10 15:00:00'),
+('TXN-006','STU-006',12000.00,'UPI','SUCCESS','2025-09-01 09:00:00'),
+('TXN-007','STU-007',12000.00,'CASH','SUCCESS','2025-09-03 10:30:00'),
+('TXN-008','STU-008',12000.00,'UPI','FAILED','2025-09-05 11:45:00'),
+('TXN-009','STU-009',12000.00,'CARD','SUCCESS','2025-09-07 14:20:00'),
+('TXN-010','STU-010',12000.00,'UPI','SUCCESS','2025-09-09 10:00:00'),
+
+('TXN-011','STU-011',12000.00,'UPI','SUCCESS','2025-09-11 09:10:00'),
+('TXN-012','STU-012',12000.00,'CASH','SUCCESS','2025-09-13 12:00:00'),
+('TXN-013','STU-013',12000.00,'CARD','SUCCESS','2025-09-15 13:00:00'),
+('TXN-014','STU-014',12000.00,'BANK','SUCCESS','2025-09-17 14:30:00'),
+('TXN-015','STU-015',12000.00,'UPI','FAILED','2025-09-19 08:50:00'),
+('TXN-016','STU-016',12000.00,'UPI','SUCCESS','2025-10-01 09:00:00'),
+('TXN-017','STU-017',12000.00,'CARD','SUCCESS','2025-10-02 10:10:00'),
+('TXN-018','STU-018',12000.00,'UPI','SUCCESS','2025-10-03 11:11:00'),
+('TXN-019','STU-019',12000.00,'BANK','SUCCESS','2025-10-04 14:00:00'),
+('TXN-020','STU-020',12000.00,'UPI','SUCCESS','2025-10-05 09:30:00'),
+
+('TXN-021','STU-021',12000.00,'UPI','SUCCESS','2025-10-06 09:00:00'),
+('TXN-022','STU-022',12000.00,'CASH','SUCCESS','2025-10-07 10:30:00'),
+('TXN-023','STU-023',12000.00,'CARD','SUCCESS','2025-10-08 11:45:00'),
+('TXN-024','STU-024',12000.00,'BANK','SUCCESS','2025-10-09 14:20:00'),
+('TXN-025','STU-025',12000.00,'UPI','SUCCESS','2025-10-10 09:10:00'),
+('TXN-026','STU-026',12000.00,'UPI','FAILED','2025-10-11 08:50:00'),
+('TXN-027','STU-027',12000.00,'CARD','SUCCESS','2025-10-12 10:00:00'),
+('TXN-028','STU-028',12000.00,'UPI','SUCCESS','2025-10-13 11:00:00'),
+('TXN-029','STU-029',12000.00,'BANK','SUCCESS','2025-10-14 12:30:00'),
+('TXN-030','STU-030',12000.00,'UPI','SUCCESS','2025-10-15 09:00:00'),
+
+('TXN-031','STU-031',12000.00,'UPI','SUCCESS','2025-11-01 09:10:00'),
+('TXN-032','STU-032',12000.00,'CASH','SUCCESS','2025-11-02 10:05:00'),
+('TXN-033','STU-033',12000.00,'CARD','SUCCESS','2025-11-03 11:25:00'),
+('TXN-034','STU-034',12000.00,'BANK','SUCCESS','2025-11-04 12:40:00'),
+('TXN-035','STU-035',12000.00,'UPI','SUCCESS','2025-11-05 13:00:00'),
+('TXN-036','STU-036',12000.00,'UPI','SUCCESS','2025-11-06 09:20:00'),
+('TXN-037','STU-037',12000.00,'CARD','SUCCESS','2025-11-07 10:30:00'),
+('TXN-038','STU-038',12000.00,'UPI','SUCCESS','2025-11-08 11:40:00'),
+('TXN-039','STU-039',12000.00,'BANK','SUCCESS','2025-11-09 12:50:00'),
+('TXN-040','STU-040',12000.00,'UPI','SUCCESS','2025-11-10 09:00:00');
+
+-- =====================================================
+-- 14) GPS_TRACKING (120 records sample)
+-- =====================================================
+INSERT INTO gps_tracking (tracking_id, bus_id, latitude, longitude, recorded_at)
+VALUES
+('GPS-001','BUS-001',18.5601,73.7801,'2025-11-01 08:02:05'),
+('GPS-002','BUS-001',18.5605,73.7810,'2025-11-01 08:05:12'),
+('GPS-003','BUS-002',18.5049,73.8387,'2025-11-01 08:12:02'),
+('GPS-004','BUS-003',18.5934,73.7390,'2025-11-01 08:18:10'),
+('GPS-005','BUS-004',18.5571,73.7915,'2025-11-01 08:04:02'),
+
+('GPS-006','BUS-005',18.6207,73.7958,'2025-11-02 08:03:00'),
+('GPS-007','BUS-006',18.6503,73.8036,'2025-11-02 08:18:14'),
+('GPS-008','BUS-007',18.6210,73.8079,'2025-11-03 08:20:20'),
+('GPS-009','BUS-008',18.5695,73.8037,'2025-11-04 08:07:10'),
+('GPS-010','BUS-009',18.5610,73.7875,'2025-11-05 08:02:50'),
+
+('GPS-011','BUS-010',18.6390,73.7480,'2025-11-06 08:05:30'),
+('GPS-012','BUS-001',18.5608,73.7808,'2025-11-07 08:02:40'),
+('GPS-013','BUS-002',18.5052,73.8390,'2025-11-07 08:12:40'),
+('GPS-014','BUS-003',18.5938,73.7394,'2025-11-08 08:18:45'),
+('GPS-015','BUS-004',18.5575,73.7918,'2025-11-09 08:04:30'),
+
+('GPS-016','BUS-005',18.6211,73.7960,'2025-11-10 08:03:05'),
+('GPS-017','BUS-006',18.6508,73.8040,'2025-11-11 08:18:12'),
+('GPS-018','BUS-007',18.6215,73.8082,'2025-11-12 08:19:33'),
+('GPS-019','BUS-008',18.5699,73.8040,'2025-11-13 08:07:20'),
+('GPS-020','BUS-009',18.5615,73.7881,'2025-11-14 08:02:40');
+
+-- =====================================================
+-- 15) NOTIFICATIONS (sample - some sms/whatsapp notifications for parents & admins)
+-- =====================================================
+INSERT INTO notifications (notification_id, recipient_id, type, message, status, sent_at, created_at)
+VALUES
+('NOT-001','PAR-001','SMS','Your child Aarav Patil boarded bus BUS-001 at 08:02 AM. Driver: Mahesh Kale.','SENT','2025-11-01 08:03:00','2025-11-01 08:03:00'),
+('NOT-002','PAR-002','SMS','Your child Siya Kulkarni boarding failed (invalid pass) at 08:12 AM.','SENT','2025-08-01 08:13:00','2025-08-01 08:13:00'),
+('NOT-003','PAR-003','WHATSAPP','Reva has boarded the bus at 07:45 AM. Driver – Rahul. Bus No – MH12 AB 3456.','SENT','2025-10-11 07:46:00','2025-10-11 07:46:00'),
+('NOT-004','ADM-001','SMS','Bus BUS-003 reported delay on RTE-003 at 08:50 AM.','PENDING',NULL,'2025-11-03 09:00:00'),
+('NOT-005','PAR-004','SMS','Your child Priya Jadhav pass expired. Boarding denied at 08:05 AM.','SENT','2025-08-01 08:06:00','2025-08-01 08:06:00');
+
+-- Done. Sample moderate dataset inserted.
 
